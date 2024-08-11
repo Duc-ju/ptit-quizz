@@ -1,0 +1,12 @@
+.practiceTimeList {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+
+.emptyWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+}

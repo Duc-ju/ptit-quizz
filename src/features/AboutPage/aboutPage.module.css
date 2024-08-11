@@ -1,0 +1,78 @@
+.root {
+    min-height: calc(100dvh - var(--header-height) - var(--footer-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 90dvw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: calc(var(--header-height) + 32px);
+}
+
+.root a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.root a:hover {
+    color: var(--secondary-color);
+}
+
+.root * {
+    font-size: 18px;
+    text-align: justify;
+}
+
+.root ul, li {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.root ul {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+}
+
+.root .facebookPage {
+    margin-bottom: 32px;
+    row-gap: 4px;
+}
+
+.heading {
+    font-size: 22px;
+}
+
+.imageContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    row-gap: 8px;
+}
+
+.imageContainer img {
+    width: 80vw;
+    max-width: 800px;
+    height: auto;
+}
+
+.imageContainer .label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    font-style: italic;
+}
+
+@media only screen and (max-width: 1024px) {
+    .root * {
+        font-size: 15px;
+    }
+
+    .heading {
+        font-size: 18px;
+    }
+}

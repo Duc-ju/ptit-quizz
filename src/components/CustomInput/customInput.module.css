@@ -1,0 +1,29 @@
+.root {
+    width: 100%;
+}
+
+.fieldLabel {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.errorMessage {
+    margin: 0;
+    font-size: 16px;
+    color: var(--primary-color);
+}
+
+.textInput {
+    background-color: var(--tertiary-color);
+    outline: none;
+    font-size: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--tertiary-color);
+    width: 100%;
+}
+
+.textInput:focus-visible {
+    border: 1px solid var(--primary-color);;
+}

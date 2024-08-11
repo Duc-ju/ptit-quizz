@@ -1,0 +1,65 @@
+.practiceTime {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--dark-grey-color);
+    align-items: center;
+    cursor: pointer;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.description {
+    margin: 0;
+    font-weight: 500;
+}
+
+.totalQuestionCount {
+    font-size: 12px;
+    color: var(--dark-grey-color)
+}
+
+.numberOfRight {
+    font-size: 12px;
+    color: var(--dark-grey-color)
+}
+
+.createAtContainer {
+    display: flex;
+    flex-direction: row;
+    column-gap: 6px;
+    align-items: center;
+}
+
+.createAt {
+    font-size: 12px;
+}
+
+.chart {
+    width: 90px;
+    position: relative;
+}
+
+.accuracyContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.accuracy {
+}
+
+.clockIcon {
+    font-size: 16px;
+}

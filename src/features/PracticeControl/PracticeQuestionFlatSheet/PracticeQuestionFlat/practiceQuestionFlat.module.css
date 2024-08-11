@@ -1,0 +1,65 @@
+.question {
+
+}
+
+.questionTitle {
+    font-weight: 500;
+    font-size: 20px;
+    margin: 24px 0 16px;
+}
+
+.questionAnswerContainer {
+    padding: 16px;
+    border-radius: 8px;
+    background-color: var(--tertiary-color);
+    display: flex;
+    justify-content: space-between;
+    column-gap: 8px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.answerContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    margin-bottom: 36px;
+}
+
+.questionAnswerTitle {
+    font-size: 18px;
+    flex: 1;
+}
+
+.rightAnswer {
+    background-color: var(--success-15-color);
+    border: 1px solid var(--success-color)
+}
+
+.rightAnswerText {
+    color: var(--success-color);
+}
+
+.wrongAnswer {
+    background-color: var(--primary-15-color);
+    border: 1px solid var(--primary-color);
+}
+
+.wrongAnswerText {
+    color: var(--primary-color)
+}
+
+.answerSelected {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.answerSelectedText {
+    color: var(--white);
+}
+
+.answerUnselect {
+}
+
+.answerUnselectText {
+}

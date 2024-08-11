@@ -1,0 +1,126 @@
+.root {
+    min-height: calc(100dvh - var(--header-height));
+}
+
+.parent {
+    width: 1000px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--little-grey-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: calc(100dvh - var(--header-height));
+}
+
+.container {
+    padding: 8px;
+    width: 100%;
+}
+
+.scrollContainer {
+    padding: 16px;
+    background-color: var(--white);
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+    position: fixed;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: var(--shadow-light);
+    padding: 8px 16px;
+    border-radius: 8px;
+    z-index: 1;
+    background-color: var(--white);
+    column-gap: 16px;
+    width: max-content;
+}
+
+.indexGroup {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    cursor: pointer;
+}
+
+.indexLabel {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.playingContainer {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.playingMessage {
+    font-weight: 600;
+    color: var(--success-color);
+}
+
+.playingMessage.isPlaying {
+    color: var(--primary-color);
+}
+
+.countDownContainer {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    cursor: pointer;
+}
+
+.countDown {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.actionContainer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.buttonContainer {
+    background-color: var(--tertiary-color);
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pauseIcon, .playIcon, .clockDownIcon, .listIcon {
+    font-size: 16px;
+}
+
+.pauseIcon, .clockDownIcon, .listIcon {
+    color: var(--primary-color)
+}
+
+.playIcon {
+    color: var(--success-color);
+}
+
+.nextQuestion span {
+    font-size: 16px;
+}
+
+.questionContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    margin-bottom: 64px;
+    margin-top: 40px;
+}
