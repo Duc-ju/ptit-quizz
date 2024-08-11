@@ -27,7 +27,7 @@ function PracticeHistory() {
   const [questionFetching, setQuestionFetching] = useState(false);
 
   useEffect(() => {
-    document.title = "Grade PTIT | Lịch sử ôn tập";
+    document.title = "PTIT Quizz | Lịch sử ôn tập";
   }, []);
 
   const user = useUserSelector();

@@ -17,6 +17,7 @@ const AboutPage = lazy(() => import("../../features/AboutPage"));
 const PracticeControl = lazy(() => import("../../features/PracticeControl"));
 const PracticeHistory = lazy(() => import("../../features/PracticeHistory"));
 const PracticeReview = lazy(() => import("../../features/PracticeReview"));
+const Authentication = lazy(() => import("../../features/Authentication"));
 
 function MainRoute() {
   const [searchParams] = useSearchParams();
@@ -77,6 +78,8 @@ function MainRoute() {
       <main className={classes.content}>
         <Routes>
           <Route path={""} element={<PracticeHome />} />
+          <Route path="/login" element={<Authentication />} />
+          <Route path="/register" element={<Authentication />} />
           <Route path={"/practice-review"} element={<PracticeReview />} />
           <Route path={"/practice-control"} element={<PracticeControl />} />
           <Route path={"/practice-history"} element={<PracticeHistory />} />

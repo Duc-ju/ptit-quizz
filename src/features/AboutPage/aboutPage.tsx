@@ -177,7 +177,7 @@ function AboutPage() {
           điểm CGPA/CPA.
         </li>
         <li>
-          - <b>6/5/2024:</b> Ra mắt app Grade PTIT - Quản lý điểm. Bổ sung các
+          - <b>6/5/2024:</b> Ra mắt app PTIT Quizz - Quản lý điểm. Bổ sung các
           ngành học của khóa D23, giao diện đẹp hơn, tốc độ phản hồi nhanh hơn
           và có chức năng ôn thu trắc nghiệm, giúp các bạn sinh viên ôn tập các
           môn thi trắc nghiệm ở trường.{" "}

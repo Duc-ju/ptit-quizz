@@ -63,12 +63,10 @@ export const register = createAsyncThunk(
     email,
     password,
     fullName,
-    studentCode,
   }: {
     email: string;
     password: string;
     fullName: string;
-    studentCode: string;
   }) => {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -78,14 +76,12 @@ export const register = createAsyncThunk(
     const user = userCredential.user;
     const docRef = await addDocument("users", {
       uid: user.uid,
-      studentCode,
       fullName,
       email,
     });
     const createdUser: User = {
       id: docRef.id,
       uid: user.uid,
-      studentCode,
       fullName,
       email,
     };

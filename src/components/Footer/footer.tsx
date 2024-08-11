@@ -33,7 +33,7 @@ function Footer() {
         </div>
       </div>
       <div className={classes.bio}>
-        <span>A tool developed by Grade PTIT Team </span>
+        <span>A tool developed by PTIT Quizz Team </span>
         <span className={classes.heart}>
           <AiFillHeart />
         </span>

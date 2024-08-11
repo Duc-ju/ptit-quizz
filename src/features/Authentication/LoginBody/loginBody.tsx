@@ -24,7 +24,7 @@ function LoginBody(props: { setTab: Function }) {
   const redirect = useRedirect();
 
   useEffect(() => {
-    document.title = "Grade PTIT | Đăng Nhập";
+    document.title = "PTIT Quizz | Đăng Nhập";
   }, []);
   const handleLogin = ({
     email,

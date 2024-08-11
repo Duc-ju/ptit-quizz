@@ -15,7 +15,6 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email().required().label("email"),
   password: Yup.string().min(8).required().label("mật khẩu"),
   fullName: Yup.string().required().label("họ và tên"),
-  studentCode: Yup.string().required().label("mã sinh viên"),
 });
 
 function RegisterBody() {
@@ -24,25 +23,23 @@ function RegisterBody() {
   const redirect = useRedirect();
 
   useEffect(() => {
-    document.title = "Grade PTIT | Đăng ký";
+    document.title = "PTIT Quizz | Đăng ký";
   }, []);
 
   const handleRegister = ({
     email,
     password,
     fullName,
-    studentCode,
   }: {
     email: string;
     password: string;
     fullName: string;
-    studentCode: string;
   }) => {
     if (fetching) {
       return;
     }
     setFetching(true);
-    dispatch(register({ email, password, fullName, studentCode }))
+    dispatch(register({ email, password, fullName }))
       .then(unwrapResult)
       .then(() => {
         redirect("/", "Đăng ký thành công");
@@ -75,11 +72,6 @@ function RegisterBody() {
               fieldLabel="Họ và tên"
               fieldName="fullName"
               placeholder="Họ và tên"
-            />
-            <CustomInput
-              fieldLabel="Mã sinh viên"
-              fieldName="studentCode"
-              placeholder="Mã sinh viên"
             />
             <CustomInput
               fieldLabel="Email"

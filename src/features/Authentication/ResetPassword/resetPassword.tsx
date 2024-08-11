@@ -17,7 +17,7 @@ function ResetPassword(props: { setTab: Function }) {
   const [fetching, setFetching] = useState(false);
 
   useEffect(() => {
-    document.title = "Grade PTIT | Đặt lại mật khẩu";
+    document.title = "PTIT Quizz | Đặt lại mật khẩu";
   }, []);
 
   const handleLogin = ({ email }: { email: string }) => {

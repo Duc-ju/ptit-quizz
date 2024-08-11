@@ -9,7 +9,7 @@ import PracticeQuestionFlatSheet from "./PracticeQuestionFlatSheet";
 
 function PracticeControl() {
   useEffect(() => {
-    document.title = "Grade PTIT | Ôn thi trắc nghiệm";
+    document.title = "PTIT Quizz | Ôn thi trắc nghiệm";
   }, []);
   const shouldShowingSummary = usePracticeRoomShouldShowingSummarySelector();
   const practiceType = usePracticeRoomTypeConfigSelector();

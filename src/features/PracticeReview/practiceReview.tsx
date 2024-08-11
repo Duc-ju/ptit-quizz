@@ -78,7 +78,7 @@ function PracticeReview() {
   useHideFooter();
 
   useEffect(() => {
-    document.title = "Grade PTIT | Ôn thi trắc nghiệm";
+    document.title = "PTIT Quizz | Ôn thi trắc nghiệm";
   }, []);
 
   useEffect(() => {
