@@ -111,7 +111,7 @@ export const masterSlice = createSlice({
   reducers: {
     loadMasterFromStorage: (state) => {
       const storedThemeKey = window.localStorage.getItem(THEME_KEY);
-      const themeKey = storedThemeKey ? storedThemeKey : THEME_KEYS[2];
+      const themeKey = storedThemeKey ? storedThemeKey : THEME_KEYS[0];
       window.localStorage.setItem(THEME_KEY, themeKey);
       state.colors = THEME_COLORS[themeKey];
       state.themeKey = themeKey;

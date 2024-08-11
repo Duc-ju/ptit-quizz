@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -74,38 +74,67 @@ export const register = createAsyncThunk(
       password
     );
     const user = userCredential.user;
-    const docRef = await addDocument("users", {
-      uid: user.uid,
-      fullName,
-      email,
-    });
-    const createdUser: User = {
-      id: docRef.id,
-      uid: user.uid,
-      fullName,
-      email,
-    };
-    window.localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(createdUser));
-    return createdUser;
+    const snapshot = await db
+      .collection("users")
+      .where("uid", "==", user.uid)
+      .limit(1)
+      .get();
+    const userResponse = snapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    const users = userResponse as User[];
+    if (users && users.length) {
+      window.localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(users[0]));
+      return users[0];
+    } else {
+      const docRef = await addDocument("users", {
+        uid: user.uid,
+        fullName,
+        email,
+      });
+      const createdUser: User = {
+        id: docRef.id,
+        uid: user.uid,
+        fullName,
+        email,
+      };
+      window.localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(createdUser));
+      return createdUser;
+    }
   }
 );
 
-export const registerWithGoogle = createAsyncThunk(
-  "auth/registerWithGoogle",
+export const loginWithGoogle = createAsyncThunk(
+  "auth/loginWithGoogle",
   async (userRegisterInfo: {
     email: string | null;
     fullName: string | null;
     avatar: string | null;
     uid: string | null;
-    providerId: string | null;
   }) => {
-    const docRef = await addDocument("users", userRegisterInfo);
-    const createdUser: User = {
-      id: docRef.id,
-      ...userRegisterInfo,
-    } as any;
-    window.localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(createdUser));
-    return createdUser;
+    const snapshot = await db
+      .collection("users")
+      .where("uid", "==", userRegisterInfo.uid)
+      .limit(1)
+      .get();
+    const userResponse = snapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    const users = userResponse as User[];
+    if (users && users.length) {
+      window.localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(users[0]));
+      return users[0];
+    } else {
+      const docRef = await addDocument("users", userRegisterInfo);
+      const createdUser: User = {
+        id: docRef.id,
+        ...userRegisterInfo,
+      } as any;
+      window.localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(createdUser));
+      return createdUser;
+    }
   }
 );
 
@@ -147,17 +176,7 @@ export const deleteAccount = createAsyncThunk(
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    loginWithGoogle: (state, action: PayloadAction<User | null>) => {
-      window.localStorage.setItem(
-        LOCAL_USER_KEY,
-        JSON.stringify(action.payload)
-      );
-      window.localStorage.setItem(LOCAL_AUTH_TYPE, "google");
-      state.user = action.payload;
-      state.authType = "google";
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
       state.user = action.payload;
@@ -169,7 +188,7 @@ export const authSlice = createSlice({
       window.localStorage.setItem(LOCAL_AUTH_TYPE, "password");
       state.authType = "password";
     });
-    builder.addCase(registerWithGoogle.fulfilled, (state, action) => {
+    builder.addCase(loginWithGoogle.fulfilled, (state, action) => {
       state.user = action.payload;
       window.localStorage.setItem(LOCAL_AUTH_TYPE, "google");
       state.authType = "google";
@@ -199,6 +218,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { loginWithGoogle } = authSlice.actions;
+export const {} = authSlice.actions;
 
 export default authSlice;

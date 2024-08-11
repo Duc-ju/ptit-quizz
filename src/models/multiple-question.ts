@@ -1,6 +1,7 @@
 export interface PracticeSubject {
   id: string;
   name: string;
+  code: string;
   icon: string;
   keywords: string[];
   createAt?: {
@@ -56,7 +57,7 @@ export interface PracticeTime {
 
 export interface Practice {
   id: string;
-  practiceSubjectId: string;
+  subjectCode: string;
   title: string;
   keywords: string[];
   description: string;
@@ -81,7 +82,7 @@ export interface Chapter {
 export interface Question {
   id: string;
   chapterIdx?: number;
-  practiceId: string;
+  practiceCode: string;
   title: string;
   answers: Answer[];
   bonus?: string;

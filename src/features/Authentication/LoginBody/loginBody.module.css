@@ -25,11 +25,16 @@
     cursor: pointer;
 }
 
-.googleButton:hover, .facebookButton:hover {
+.facebookButton {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.googleButton:hover {
     background-color: var(--primary-color);
 }
 
-.googleButton:hover *, .facebookButton:hover * {
+.googleButton:hover * {
     color: white;
 }
 

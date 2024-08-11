@@ -8,9 +8,11 @@ import { Formik } from "formik";
 import CustomInput from "../../../components/CustomInput";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../redux/store";
-import { login } from "../../../redux/slices/authSlice";
+import { login, loginWithGoogle } from "../../../redux/slices/authSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import useRedirect from "../../../hooks/useRedirect";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../../firebase/config";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required().label("email"),
@@ -52,9 +54,27 @@ function LoginBody(props: { setTab: Function }) {
   };
 
   const handleGoogleLogin = () => {
-    toast.info(
-      "Tính năng này đang được phát triển. Bạn hãy đăng nhập bằng email và mật khẩu nhé."
-    );
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        dispatch(
+          loginWithGoogle({
+            uid: result.user.uid,
+            fullName: result.user.displayName || "Người dùng",
+            email: result.user.email,
+            avatar: result.user.photoURL,
+          })
+        )
+          .then(unwrapResult)
+          .then(() => redirect("/", "Đăng nhập thành công"))
+          .catch((err) => {
+            console.error(err);
+            toast.error("Đăng nhập không thành công");
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("Đăng nhập không thành công");
+      });
   };
 
   const handleFacebookLogin = () => {
