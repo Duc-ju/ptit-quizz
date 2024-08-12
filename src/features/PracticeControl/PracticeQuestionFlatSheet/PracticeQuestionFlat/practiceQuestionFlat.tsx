@@ -1,4 +1,3 @@
-// @ts-ignore
 import mergeClassNames from "merge-class-names";
 import {
   Answer,

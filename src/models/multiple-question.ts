@@ -1,13 +1,7 @@
-export interface PracticeSubject {
-  id: string;
+export interface Subject {
   name: string;
   code: string;
   icon: string;
-  keywords: string[];
-  createAt?: {
-    nanoseconds: number;
-    seconds: number;
-  };
 }
 
 export interface QuestionRange {
@@ -37,7 +31,7 @@ export interface QuestionResult {
 
 export interface PracticeTime {
   id?: string;
-  practiceId: string;
+  practiceCode: string;
   practiceTitle: string;
   description: string;
   uid: string;
@@ -56,20 +50,15 @@ export interface PracticeTime {
 }
 
 export interface Practice {
-  id: string;
+  code: string;
   subjectCode: string;
   title: string;
-  keywords: string[];
   description: string;
-  chapters?: Chapter[];
   numberOfQuestion: number;
-  numberOfPracticed: number;
+  numberOfPracticed?: number;
+  chapters?: Chapter[];
   author?: string;
-  isHided: boolean;
-  createAt?: {
-    nanoseconds: number;
-    seconds: number;
-  };
+  isHided?: boolean;
 }
 
 export interface Chapter {

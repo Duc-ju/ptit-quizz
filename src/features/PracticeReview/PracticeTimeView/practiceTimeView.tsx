@@ -5,7 +5,6 @@ import { PracticeTime } from "../../../models/multiple-question";
 import { GoClock } from "@react-icons/all-files/go/GoClock";
 import { Cell, Pie, PieChart } from "recharts";
 import { RING_CHART_COLOR_CONFIG } from "../../../constant/constant";
-// @ts-ignore
 import mergeClassNames from "merge-class-names";
 import useRedirect from "../../../hooks/useRedirect";
 

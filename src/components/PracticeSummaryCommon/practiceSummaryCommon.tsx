@@ -1,20 +1,20 @@
-import React, { useMemo } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import React, {useMemo} from "react";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../../redux/store";
 import classes from "./practiceSummaryCommon.module.css";
-import { restartRoom } from "../../redux/slices/practiceRoomSlice";
+import {restartRoom} from "../../redux/slices/practiceRoomSlice";
 import LoadingButton from "../../components/LoadingButton";
 import QuestionReview from "../QuestionReview";
-import { Cell, Pie, PieChart } from "recharts";
-import { RING_CHART_COLOR_CONFIG } from "../../constant/constant";
+import {Cell, Pie, PieChart} from "recharts";
+import {RING_CHART_COLOR_CONFIG} from "../../constant/constant";
 import useHideFooter from "../../hooks/useHideFooter";
 import useRedirect from "../../hooks/useRedirect";
-import { Question, QuestionResult } from "../../models/multiple-question";
+import {Question, QuestionResult} from "../../models/multiple-question";
 import useScrollTop from "../../hooks/useScrollTop";
 import getMinutesAndSeconds from "../../utils/getMinutesAndSeconds";
 
 export interface PracticeSummaryCommonProps {
-  practiceId: string;
+  practiceCode: string;
   practiceTitle: string;
   practiceDescription: string;
   questions: Question[];
@@ -27,17 +27,17 @@ export interface PracticeSummaryCommonProps {
 }
 
 function PracticeSummaryCommon({
-  practiceId,
-  practiceTitle,
-  practiceDescription,
-  questions,
-  results,
-  fromHistory,
-  rightAnswerCount,
-  wrongAnswerCount,
-  sufferIndexes,
-  totalTime,
-}: PracticeSummaryCommonProps) {
+                                 practiceCode,
+                                 practiceTitle,
+                                 practiceDescription,
+                                 questions,
+                                 results,
+                                 fromHistory,
+                                 rightAnswerCount,
+                                 wrongAnswerCount,
+                                 sufferIndexes,
+                                 totalTime,
+                               }: PracticeSummaryCommonProps) {
   const dispatch = useDispatch<AppDispatch>();
   const redirect = useRedirect();
   useHideFooter();
@@ -59,7 +59,7 @@ function PracticeSummaryCommon({
   ];
 
   function handleRedirectToReview() {
-    redirect("/practice-review?id=" + practiceId);
+    redirect("/practice-review/" + practiceCode);
   }
 
   const sortedQuestions = useMemo(() => {

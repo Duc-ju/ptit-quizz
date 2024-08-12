@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, {useMemo} from "react";
 import {
   usePracticeRoomPractice,
   usePracticeRoomPracticeDescriptionSelector,
@@ -8,7 +8,7 @@ import {
   usePracticeSufferIndexesSelector,
 } from "../../../redux/selector";
 import PracticeSummaryCommon from "../../../components/PracticeSummaryCommon";
-import { Practice } from "../../../models/multiple-question";
+import {Practice} from "../../../models/multiple-question";
 
 function PracticeSummary() {
   const practice = usePracticeRoomPractice() as Practice;
@@ -29,8 +29,8 @@ function PracticeSummary() {
 
   return (
     <PracticeSummaryCommon
-      practiceId={practice.id}
-      practiceTitle={practice?.title}
+      practiceCode={practice.code}
+      practiceTitle={practice.title}
       practiceDescription={practiceDescription}
       questions={questions}
       results={results}

@@ -9,10 +9,9 @@ import {
   QuestionResult,
 } from "../../models/multiple-question";
 
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
-import { addDocument } from "../../firebase/service";
-import { db } from "../../firebase/config";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {RootState} from "../store";
+import {addDocument} from "../../firebase/service";
 
 export const MAX_QUESTION_TIME_DEFAULT = 30;
 export const RESULT_TIME_DEFAULT = 20;
@@ -87,11 +86,11 @@ const initialState: PracticeRoomState = {
 
 export const saveResult = createAsyncThunk(
   "practiceRoom/saveResult",
-  async (arg, { getState }) => {
+  async (arg, {getState}) => {
     const state = getState() as RootState;
     if (!state.practiceRoom.practice) return;
     const practiceTime: PracticeTime = {
-      practiceId: state.practiceRoom.practice.id,
+      practiceCode: state.practiceRoom.practice.code,
       practiceTitle: state.practiceRoom.practice.title,
       description: state.practiceRoom.practiceDescription,
       uid: state.auth.user?.uid as string,
@@ -115,13 +114,6 @@ export const saveResult = createAsyncThunk(
       practiceTime.questionRange = state.practiceRoom.config.questionRange;
     }
     await addDocument("practice-times", practiceTime);
-    await db
-      .collection("practices")
-      .doc(state.practiceRoom.practice.id)
-      .update({
-        numberOfPracticed: state.practiceRoom.practice.numberOfPracticed + 1,
-      });
-    return state.practiceRoom.practice.numberOfPracticed + 1;
   }
 );
 
@@ -157,7 +149,7 @@ export const practiceRoomSlide = createSlice({
         return arr;
       };
       const sourceIndexes = Array.from(
-        { length: state.questions.length },
+        {length: state.questions.length},
         (_, i) => i
       );
       state.sufferIndexes = action.payload.config.suffer
@@ -190,13 +182,13 @@ export const practiceRoomSlide = createSlice({
     nextQuestion: (state) => {
       state.results[state.sufferIndexes[state.currentQuestionIndex]] = {
         questionId:
-          state.questions[state.sufferIndexes[state.currentQuestionIndex]].id,
+        state.questions[state.sufferIndexes[state.currentQuestionIndex]].id,
         answerSelection: {
           selectedAnswerIndexes: state.currentSelectedAnswerIndexes,
           rightAnswer:
             state.questions[
               state.sufferIndexes[state.currentQuestionIndex]
-            ].answers.filter(
+              ].answers.filter(
               (answer) =>
                 (state.currentSelectedAnswerIndexes.includes(answer.idx) &&
                   !answer.isKey) ||
@@ -222,7 +214,7 @@ export const practiceRoomSlide = createSlice({
         state.currentSelectedAnswerIndexes.length ===
         state.questions[
           state.sufferIndexes[state.currentQuestionIndex]
-        ].answers.filter((answer) => answer.isKey).length
+          ].answers.filter((answer) => answer.isKey).length
       ) {
         state.shouldShowingResult = true;
       }
@@ -258,7 +250,7 @@ export const practiceRoomSlide = createSlice({
         state.questions[state.sufferIndexes[action.payload.questionIndex]];
       let currentResult: QuestionResult = state.results[
         state.sufferIndexes[action.payload.questionIndex]
-      ] || {
+        ] || {
         questionId: question.id,
         answerSelection: {
           selectedAnswerIndexes: [],
@@ -286,7 +278,7 @@ export const practiceRoomSlide = createSlice({
           );
         } else if (
           currentResult.answerSelection.selectedAnswerIndexes.length ===
-            numberOfKey &&
+          numberOfKey &&
           numberOfKey === 1
         ) {
           currentResult.answerSelection.selectedAnswerIndexes.pop();
@@ -319,12 +311,12 @@ export const practiceRoomSlide = createSlice({
           question.answers.filter(
             (answer) =>
               (result.answerSelection.selectedAnswerIndexes.includes(
-                answer.idx
-              ) &&
+                  answer.idx
+                ) &&
                 !answer.isKey) ||
               (!result.answerSelection.selectedAnswerIndexes.includes(
-                answer.idx
-              ) &&
+                  answer.idx
+                ) &&
                 answer.isKey)
           ).length === 0;
 
@@ -333,12 +325,8 @@ export const practiceRoomSlide = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(saveResult.fulfilled, (state, action) => {
+    builder.addCase(saveResult.fulfilled, (state) => {
       state.savingResult = false;
-      if (action.payload && state.practice) {
-        state.practice.numberOfPracticed = action.payload;
-        state.shouldShowingSummary = true;
-      }
     });
   },
 });

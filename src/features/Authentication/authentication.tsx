@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./authentication.module.css";
 import LoginBody from "./LoginBody";
-// @ts-ignore
 import mergeClassNames from "merge-class-names";
 import RegisterBody from "./RegisterBody";
 import { useLocation } from "react-router-dom";

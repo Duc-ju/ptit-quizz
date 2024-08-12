@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./customInput.module.css";
 import { useField } from "formik";
-// @ts-ignore
 import mergeClassNames from "merge-class-names";
 
 export interface CustomInputProps

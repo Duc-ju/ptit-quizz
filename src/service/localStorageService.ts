@@ -1,16 +1,12 @@
-import {
-  PracticeTimeType,
-  Question,
-  QuestionRange,
-} from "../models/multiple-question";
+import {PracticeTimeType, Question, QuestionRange,} from "../models/multiple-question";
 
 const buildKey = (
-  practiceId: string,
+  practiceCode: string,
   type: PracticeTimeType,
   selectedQuestionRange: QuestionRange | null | undefined,
   selectedChapterIdx: number | null | undefined
 ) => {
-  let key = `${practiceId}_${type}_`;
+  let key = `${practiceCode}_${type}_`;
   if (type === "PRACTICE_TIME_RANGE")
     key =
       key +
@@ -20,7 +16,7 @@ const buildKey = (
 };
 
 export const saveQuestionsToStorage = (
-  practiceId: string,
+  practiceCode: string,
   type: PracticeTimeType,
   questions: Question[],
   selectedQuestionRange: QuestionRange | null | undefined,
@@ -28,7 +24,7 @@ export const saveQuestionsToStorage = (
 ) => {
   try {
     const key = buildKey(
-      practiceId,
+      practiceCode,
       type,
       selectedQuestionRange,
       selectedChapterIdx
@@ -41,14 +37,14 @@ export const saveQuestionsToStorage = (
 };
 
 export const getQuestionsFromStorage = (
-  practiceId: string,
+  practiceCode: string,
   type: PracticeTimeType,
   selectedQuestionRange: QuestionRange | null | undefined,
   selectedChapterIdx: number | null | undefined
 ) => {
   try {
     const key = buildKey(
-      practiceId,
+      practiceCode,
       type,
       selectedQuestionRange,
       selectedChapterIdx

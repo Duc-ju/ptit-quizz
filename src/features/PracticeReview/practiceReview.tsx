@@ -18,7 +18,7 @@ import {
 } from "../../redux/slices/practiceRoomSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useUserSelector } from "../../redux/selector";
 import { db } from "../../firebase/config";
 import { toast } from "react-toastify";
@@ -26,9 +26,7 @@ import useRedirect from "../../hooks/useRedirect";
 import PracticeTimeList from "./PracticeTimeList/practiceTimeList";
 import LoadingButton from "../../components/LoadingButton";
 import classes from "./practiceReview.module.css";
-// @ts-ignore
 import mergeClassNames from "merge-class-names";
-import LoadingIcon from "../../components/LoadingIcon";
 import { MdHistory } from "@react-icons/all-files/md/MdHistory";
 import { GoListUnordered } from "@react-icons/all-files/go/GoListUnordered";
 import { GoTasklist } from "@react-icons/all-files/go/GoTasklist";
@@ -42,6 +40,7 @@ import {
   getQuestionsFromStorage,
   saveQuestionsToStorage,
 } from "../../service/localStorageService";
+import practices from "../../data/practice";
 
 function PracticeReview() {
   const [practice, setPractice] = useState<Practice | null>(null);
@@ -62,9 +61,7 @@ function PracticeReview() {
     useState<QuestionRange | null>(null);
   const [initRoomFetching, setInitRoomFetching] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get("id");
-  const [practiceFetching, setPracticeFetching] = useState(false);
+  const { practiceCode } = useParams();
   const [practiceError, setPracticeError] = useState(false);
   const [practiceTimes, setPracticeTimes] = useState<PracticeTime[]>([]);
   const [practiceTimeFetching, setPracticeTimeFetching] = useState(false);
@@ -86,38 +83,30 @@ function PracticeReview() {
     setSelectedChapter(null);
     handleRefreshPractice();
     handleRefreshPracticeTime();
-  }, [id]);
+  }, [practiceCode]);
 
   const handleRefreshPractice = useCallback(() => {
-    if (!id) {
+    if (!practiceCode) {
       return;
     }
-    setPracticeFetching(true);
-    db.collection("practices")
-      .doc(id)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const practiceFetched = doc.data() as Practice;
-          practiceFetched.id = doc.id;
-          setPractice(practiceFetched);
-        }
-        setPracticeError(false);
-      })
-      .catch(() => {
-        setPracticeError(true);
-        toast.error("Không thể tải đề luyện tập");
-      })
-      .finally(() => setPracticeFetching(false));
-  }, [id]);
+    const filteredPractice = practices.find(
+      (practice) => practice.code === practiceCode
+    );
+    if (!filteredPractice) {
+      setPracticeError(true);
+      toast.error("Không thể tải đề luyện tập");
+    } else {
+      setPractice(filteredPractice);
+    }
+  }, [practiceCode]);
 
   const handleRefreshPracticeTime = useCallback(() => {
-    if (!id || !user) {
+    if (!practiceCode || !user) {
       return;
     }
     setPracticeTimeFetching(true);
     db.collection("practice-times")
-      .where("practiceId", "==", id)
+      .where("practiceCode", "==", practiceCode)
       .where("uid", "==", user.uid)
       .orderBy("createAt", "desc")
       .limit(10)
@@ -138,7 +127,7 @@ function PracticeReview() {
         toast.error("Không thể tải lịch sử luyện tập");
       })
       .finally(() => setPracticeTimeFetching(false));
-  }, [id]);
+  }, [practiceCode, user]);
 
   const getFilterType = () => {
     if (!groupByChapter && selectedQuestionRange) {
@@ -155,7 +144,7 @@ function PracticeReview() {
     let questionQuery;
     const baseQuery = db
       .collection("questions")
-      .where("practiceId", "==", practice.id)
+      .where("practiceCode", "==", practiceCode)
       .orderBy("idx", "asc");
     if (!groupByChapter && selectedQuestionRange) {
       questionQuery = baseQuery
@@ -174,7 +163,7 @@ function PracticeReview() {
   };
 
   const handleStartControl = () => {
-    if (!practice || initRoomFetching) return;
+    if (!practice || initRoomFetching || !practiceCode) return;
     if (!user) {
       redirect("/login");
       return;
@@ -214,7 +203,7 @@ function PracticeReview() {
       navigate("/practice-control");
     };
     const questionsCached = getQuestionsFromStorage(
-      practice.id,
+      practiceCode,
       type,
       selectedQuestionRange,
       selectedChapter?.idx
@@ -230,7 +219,7 @@ function PracticeReview() {
           toast.error("Không thể tải danh sách câu hỏi");
         }
         saveQuestionsToStorage(
-          practice.id,
+          practiceCode,
           type,
           questions as Question[],
           selectedQuestionRange,
@@ -276,7 +265,7 @@ function PracticeReview() {
   }
 
   function handleQuestionsPreview() {
-    if (initRoomFetching || !practice) return;
+    if (initRoomFetching || !practice || !practiceCode) return;
     if (
       !selectedQuestionRange &&
       !selectedChapter &&
@@ -287,7 +276,7 @@ function PracticeReview() {
     }
     const type = getFilterType();
     const questionsCached = getQuestionsFromStorage(
-      practice.id,
+      practiceCode,
       type,
       selectedQuestionRange,
       selectedChapter?.idx
@@ -304,7 +293,7 @@ function PracticeReview() {
           throw new Error("Không thể tải danh sách câu hỏi");
         }
         saveQuestionsToStorage(
-          practice.id,
+          practiceCode,
           type,
           questions as Question[],
           selectedQuestionRange,
@@ -316,29 +305,22 @@ function PracticeReview() {
       .finally(() => setPreviewFetching(false));
   }
 
-  if (!id) return <PracticeHome />;
+  if (!practiceCode) return <PracticeHome />;
 
   return (
     <div className={classes.root}>
       <div className={classes.parent}>
         <div className={classes.container}>
           <div className={classes.innerContainer}>
-            {practiceFetching ? (
+            {practiceError ? (
               <div className={classes.emptyWrapper} style={{ height: 100 }}>
-                <LoadingIcon />
-              </div>
-            ) : practiceError ? (
-              <div className={classes.emptyWrapper} style={{ height: 100 }}>
-                <LoadingButton
-                  onClick={handleRefreshPractice}
-                  fetching={practiceFetching}
-                >
+                <LoadingButton onClick={handleRefreshPractice}>
                   Tải lại
                 </LoadingButton>
               </div>
             ) : (
               <div className={classes.practice}>
-                <span className={classes.practiceTitle}>{practice?.title}</span>
+                <h2 className={classes.practiceTitle}>{practice?.title}</h2>
                 <span className={classes.practiceDescription}>
                   {practice?.description}
                 </span>
@@ -376,16 +358,9 @@ function PracticeReview() {
                 Thiết lập phòng luyện tập
               </h5>
               <div className={classes.configContainer}>
-                {practiceFetching ? (
+                {practiceError ? (
                   <div className={classes.emptyWrapper} style={{ height: 120 }}>
-                    <LoadingIcon />
-                  </div>
-                ) : practiceError ? (
-                  <div className={classes.emptyWrapper} style={{ height: 120 }}>
-                    <LoadingButton
-                      onClick={handleRefreshPractice}
-                      fetching={practiceFetching}
-                    >
+                    <LoadingButton onClick={handleRefreshPractice}>
                       Tải lại
                     </LoadingButton>
                   </div>
@@ -726,20 +701,11 @@ function PracticeReview() {
           </div>
           <Tags
             tags={[
-              "Ôn thi PTIT",
               "Ôn thi trắc nghiệm",
               "PTIT Quizz",
-              "Trắc nghiệm PTIT",
               "Hệ thống ôn thi trắc nghiệm",
               "Ngân hàng câu hỏi",
-              "An toàn và bảo mật hệ thống thông tin",
-              "Kinh tế chính trị Mác - Lênin",
-              "Cơ sở dữ liệu",
-              "Tư tưởng Hồ Chí Minh",
-              "Phương pháp luận nghiên cứu khoa học",
-              "An toàn Web và CSDL",
-              "Mạng máy tính",
-              "Pháp luật đại cương",
+              practice?.title,
             ]}
             className={classes.tagContainer}
           />

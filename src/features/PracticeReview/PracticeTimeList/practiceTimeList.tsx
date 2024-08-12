@@ -4,7 +4,6 @@ import { PracticeTime } from "../../../models/multiple-question";
 import classes from "./practiceTime.module.css";
 import LoadingIcon from "../../../components/LoadingIcon";
 import LoadingButton from "../../../components/LoadingButton";
-// @ts-ignore
 import mergeClassNames from "merge-class-names";
 
 interface PracticeTimeProps {

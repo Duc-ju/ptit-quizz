@@ -15,7 +15,6 @@ import {
 } from "../../../redux/slices/practiceRoomSlice";
 import { toast } from "react-toastify";
 import LoadingButton from "../../../components/LoadingButton";
-// @ts-ignore
 import mergeClassNames from "merge-class-names";
 import { AiOutlineClockCircle } from "@react-icons/all-files/ai/AiOutlineClockCircle";
 import { FiPlay } from "@react-icons/all-files/fi/FiPlay";

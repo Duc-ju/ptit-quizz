@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { Question, QuestionResult } from "../../models/multiple-question";
 import classes from "./questionReview.module.css";
-// @ts-ignore
 import mergeClassNames from "merge-class-names";
 import AnswerIcon from "../AnswerIcon";
 

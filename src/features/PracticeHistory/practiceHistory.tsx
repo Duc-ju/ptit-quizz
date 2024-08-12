@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useSearchParams} from "react-router-dom";
 import {
   PRACTICE_TIME_CHAPTER,
   PRACTICE_TIME_RANGE,
@@ -7,17 +7,14 @@ import {
   Question,
   QuestionRange,
 } from "../../models/multiple-question";
-import { db } from "../../firebase/config";
-import { toast } from "react-toastify";
-import { useUserSelector } from "../../redux/selector";
+import {db} from "../../firebase/config";
+import {toast} from "react-toastify";
+import {useUserSelector} from "../../redux/selector";
 import useRedirect from "../../hooks/useRedirect";
 import PracticeSummaryCommon from "../../components/PracticeSummaryCommon";
 import classes from "./practiceHistory.module.css";
 import LoadingIcon from "../../components/LoadingIcon";
-import {
-  getQuestionsFromStorage,
-  saveQuestionsToStorage,
-} from "../../service/localStorageService";
+import {getQuestionsFromStorage, saveQuestionsToStorage,} from "../../service/localStorageService";
 
 function PracticeHistory() {
   const [practiceTime, setPracticeTime] = useState<PracticeTime | null>(null);
@@ -39,14 +36,14 @@ function PracticeHistory() {
   useEffect(() => {
     if (practiceTime && questions) {
       const questionsCached = getQuestionsFromStorage(
-        practiceTime.practiceId,
+        practiceTime.practiceCode,
         practiceTime.type,
         practiceTime.questionRange,
         practiceTime.chapterIdx
       );
       if (!questionsCached) {
         saveQuestionsToStorage(
-          practiceTime.practiceId,
+          practiceTime.practiceCode,
           practiceTime.type,
           questions,
           practiceTime.questionRange,
@@ -79,7 +76,7 @@ function PracticeHistory() {
           return Promise.resolve([]);
         }
         const questionsCached = getQuestionsFromStorage(
-          practiceTimeFetched.practiceId,
+          practiceTimeFetched.practiceCode,
           practiceTimeFetched.type,
           practiceTimeFetched.questionRange,
           practiceTimeFetched.chapterIdx
@@ -88,7 +85,7 @@ function PracticeHistory() {
         let questionQuery;
         const baseQuery = db
           .collection("questions")
-          .where("practiceId", "==", practiceTimeFetched.practiceId)
+          .where("practiceCode", "==", practiceTimeFetched.practiceCode)
           .orderBy("idx", "asc");
         if (practiceTimeFetched.type === PRACTICE_TIME_RANGE) {
           const questionRange =
@@ -138,7 +135,7 @@ function PracticeHistory() {
     return (
       <div className={classes.emptyWrapper}>
         {practiceTimeFetching || questionFetching ? (
-          <LoadingIcon />
+          <LoadingIcon/>
         ) : (
           <span>Không thể tải dữ liệu</span>
         )}
@@ -147,7 +144,7 @@ function PracticeHistory() {
 
   return (
     <PracticeSummaryCommon
-      practiceId={practiceTime.practiceId}
+      practiceCode={practiceTime.practiceCode}
       practiceTitle={practiceTime.practiceTitle}
       practiceDescription={practiceTime.description}
       sufferIndexes={practiceTime.sufferIndexes}

@@ -8,7 +8,6 @@ import { FaCheckCircle } from "@react-icons/all-files/fa/FaCheckCircle";
 import { FaRegCircle } from "@react-icons/all-files/fa/FaRegCircle";
 import { FaCircle } from "@react-icons/all-files/fa/FaCircle";
 import { IoIosCloseCircleOutline } from "@react-icons/all-files/io/IoIosCloseCircleOutline";
-// @ts-ignore
 import mergeClassNames from "merge-class-names";
 
 function AnswerIcon({
