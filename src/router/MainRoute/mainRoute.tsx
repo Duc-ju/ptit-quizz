@@ -1,14 +1,14 @@
-import React, {lazy, Suspense, useEffect} from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import classes from "./mainRoute.module.css";
 import Header from "../../components/Header";
-import {Route, Routes, useSearchParams} from "react-router-dom";
+import { Route, Routes, useSearchParams } from "react-router-dom";
 import useScrollTop from "../../hooks/useScrollTop";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import LoadingFallBack from "../../components/LoadingFallback";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "../../redux/store";
-import {loadMasterFromStorage} from "../../redux/slices/masterSlice";
-import {useColorsMasterSelector} from "../../redux/selector";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { loadMasterFromStorage } from "../../redux/slices/masterSlice";
+import { useColorsMasterSelector } from "../../redux/selector";
 import Footer from "../../components/Footer";
 
 const NotFound = lazy(() => import("../../features/NotFound"));
@@ -43,6 +43,14 @@ function MainRoute() {
       colors.primary
     );
     document.documentElement.style.setProperty(
+      "--primary-10-color",
+      colors.primary10
+    );
+    document.documentElement.style.setProperty(
+      "--primary-15-color",
+      colors.primary15
+    );
+    document.documentElement.style.setProperty(
       "--secondary-color",
       colors.secondary
     );
@@ -56,6 +64,14 @@ function MainRoute() {
       colors.success
     );
     document.documentElement.style.setProperty(
+      "--success-10-color",
+      colors.success15
+    );
+    document.documentElement.style.setProperty(
+      "--success-15-color",
+      colors.success15
+    );
+    document.documentElement.style.setProperty(
       "--warning-color",
       colors.warning
     );
@@ -63,6 +79,10 @@ function MainRoute() {
     document.documentElement.style.setProperty(
       "--light-grey-color",
       colors.lightGrey
+    );
+    document.documentElement.style.setProperty(
+      "--little-grey-color",
+      colors.littleGrey
     );
     document.documentElement.style.setProperty(
       "--dark-grey-color",
@@ -73,21 +93,24 @@ function MainRoute() {
   }, [colors]);
 
   return (
-    <Suspense fallback={<LoadingFallBack/>}>
-      <Header/>
+    <Suspense fallback={<LoadingFallBack />}>
+      <Header />
       <main className={classes.content}>
         <Routes>
-          <Route path={""} element={<PracticeHome/>}/>
-          <Route path="/login" element={<Authentication/>}/>
-          <Route path="/register" element={<Authentication/>}/>
-          <Route path={`/practice-review/:practiceCode`} element={<PracticeReview/>}/>
-          <Route path={"/practice-control"} element={<PracticeControl/>}/>
-          <Route path={"/practice-history"} element={<PracticeHistory/>}/>
-          <Route path="/about" element={<AboutPage/>}/>
-          <Route path={"*"} element={<NotFound/>}/>
+          <Route path={""} element={<PracticeHome />} />
+          <Route path="/login" element={<Authentication />} />
+          <Route path="/register" element={<Authentication />} />
+          <Route
+            path={`/practice-review/:practiceCode`}
+            element={<PracticeReview />}
+          />
+          <Route path={"/practice-control"} element={<PracticeControl />} />
+          <Route path={"/practice-history"} element={<PracticeHistory />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path={"*"} element={<NotFound />} />
         </Routes>
       </main>
-      <Footer/>
+      <Footer />
     </Suspense>
   );
 }
