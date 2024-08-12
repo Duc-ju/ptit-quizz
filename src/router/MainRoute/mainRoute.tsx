@@ -1,15 +1,16 @@
-import React, {lazy, Suspense, useEffect} from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import classes from "./mainRoute.module.css";
 import Header from "../../components/Header";
-import {Route, Routes, useSearchParams} from "react-router-dom";
+import { Route, Routes, useSearchParams } from "react-router-dom";
 import useScrollTop from "../../hooks/useScrollTop";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import LoadingFallBack from "../../components/LoadingFallback";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "../../redux/store";
-import {loadMasterFromStorage} from "../../redux/slices/masterSlice";
-import {useColorsMasterSelector} from "../../redux/selector";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { loadMasterFromStorage } from "../../redux/slices/masterSlice";
+import { useColorsMasterSelector } from "../../redux/selector";
 import Footer from "../../components/Footer";
+import DataImport from "../../features/DataImport";
 
 const NotFound = lazy(() => import("../../features/NotFound"));
 const PracticeHome = lazy(() => import("../../features/PracticeHome"));
@@ -73,21 +74,25 @@ function MainRoute() {
   }, [colors]);
 
   return (
-    <Suspense fallback={<LoadingFallBack/>}>
-      <Header/>
+    <Suspense fallback={<LoadingFallBack />}>
+      <Header />
       <main className={classes.content}>
         <Routes>
-          <Route path={""} element={<PracticeHome/>}/>
-          <Route path="/login" element={<Authentication/>}/>
-          <Route path="/register" element={<Authentication/>}/>
-          <Route path={`/practice-review/:practiceCode`} element={<PracticeReview/>}/>
-          <Route path={"/practice-control"} element={<PracticeControl/>}/>
-          <Route path={"/practice-history"} element={<PracticeHistory/>}/>
-          <Route path="/about" element={<AboutPage/>}/>
-          <Route path={"*"} element={<NotFound/>}/>
+          <Route path={""} element={<PracticeHome />} />
+          <Route path="/login" element={<Authentication />} />
+          <Route path="/register" element={<Authentication />} />
+          <Route
+            path={`/practice-review/:practiceCode`}
+            element={<PracticeReview />}
+          />
+          <Route path={"/practice-control"} element={<PracticeControl />} />
+          <Route path={"/practice-history"} element={<PracticeHistory />} />
+          <Route path="/data-import" element={<DataImport />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path={"*"} element={<NotFound />} />
         </Routes>
       </main>
-      <Footer/>
+      <Footer />
     </Suspense>
   );
 }

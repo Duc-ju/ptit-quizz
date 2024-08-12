@@ -1,0 +1,21 @@
+.root {
+    min-height: calc(100dvh - var(--header-height));
+}
+
+.parent {
+    width: 1000px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--little-grey-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: calc(100dvh - var(--header-height));
+}
+
+.container {
+    padding: 8px;
+    width: 100%;
+}

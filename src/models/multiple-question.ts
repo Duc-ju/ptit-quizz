@@ -79,6 +79,16 @@ export interface Question {
   idx: number;
 }
 
+export interface QuestionRequest {
+  chapterIdx?: number;
+  practiceCode: string;
+  title: string;
+  answers: Answer[];
+  bonus?: string;
+  bonusLink?: string;
+  idx: number;
+}
+
 export interface Answer {
   title: string;
   isKey: boolean;
