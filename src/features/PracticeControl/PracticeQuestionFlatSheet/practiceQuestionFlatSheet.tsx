@@ -3,6 +3,7 @@ import mergeClassNames from "merge-class-names";
 import {
   usePracticeRoomQuestionsSelector,
   usePracticeRoomResultsSelector,
+  usePracticeRoomSavingResultSelector,
   usePracticeRoomTotalTimeSelector,
   usePracticeSufferIndexesSelector,
 } from "../../../redux/selector";
@@ -31,6 +32,7 @@ function PracticeQuestionFlatSheet() {
   const results = usePracticeRoomResultsSelector();
   const sufferIndexes = usePracticeSufferIndexesSelector();
   const totalTime = usePracticeRoomTotalTimeSelector();
+  const savingResult = usePracticeRoomSavingResultSelector();
 
   useHideFooter();
   useHideSnowFlakeButton();
@@ -109,6 +111,7 @@ function PracticeQuestionFlatSheet() {
               <LoadingButton
                 className={classes.nextQuestion}
                 onClick={handleSubmit}
+                fetching={savingResult}
               >
                 Kết thúc
               </LoadingButton>

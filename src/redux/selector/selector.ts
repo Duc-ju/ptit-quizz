@@ -54,3 +54,6 @@ export const useQuestionsPreviewDataSelector = () =>
 
 export const usePracticeRoomTotalTimeSelector = () =>
   useSelector((state: RootState) => state.practiceRoom.totalTime);
+
+export const usePracticeRoomSavingResultSelector = () =>
+  useSelector((state: RootState) => state.practiceRoom.savingResult);

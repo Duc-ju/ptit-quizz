@@ -38,6 +38,7 @@ function PracticeQuestion() {
     shouldShowingResult,
     shouldNextQuestion,
     sufferIndexes,
+    savingResult,
   } = usePracticeRoomSelector();
   const dispatch = useDispatch<AppDispatch>();
   const [playing, setPlaying] = useState(true);
@@ -316,6 +317,7 @@ function PracticeQuestion() {
               <LoadingButton
                 className={classes.nextQuestion}
                 onClick={handleNextQuestion}
+                fetching={savingResult}
               >
                 {currentQuestionIndex === questions.length - 1
                   ? "Kết thúc"
