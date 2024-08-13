@@ -18,7 +18,7 @@ interface PracticeListViewProps {
 
 function PracticeListView({
   className,
-  title = "Danh sách bài luyện tập",
+  title = "Danh sách đề luyện tập",
   practices,
   showError,
   emptyMessage = "Danh sách bài ôn tập trống",

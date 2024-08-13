@@ -17,6 +17,7 @@ const AboutPage = lazy(() => import("../../features/AboutPage"));
 const PracticeControl = lazy(() => import("../../features/PracticeControl"));
 const PracticeHistory = lazy(() => import("../../features/PracticeHistory"));
 const PracticeReview = lazy(() => import("../../features/PracticeReview"));
+const PracticeSubject = lazy(() => import("../../features/PracticeSubject"));
 const Authentication = lazy(() => import("../../features/Authentication"));
 
 function MainRoute() {
@@ -100,6 +101,10 @@ function MainRoute() {
           <Route path={""} element={<PracticeHome />} />
           <Route path="/login" element={<Authentication />} />
           <Route path="/register" element={<Authentication />} />
+          <Route
+            path={`/practice-subject/:subjectCode`}
+            element={<PracticeSubject />}
+          />
           <Route
             path={`/practice-review/:practiceCode`}
             element={<PracticeReview />}

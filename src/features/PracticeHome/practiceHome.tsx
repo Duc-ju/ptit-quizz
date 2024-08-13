@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Subject } from "../../models/multiple-question";
 import classes from "./practiceHome.module.css";
 import mergeClassNames from "merge-class-names";
-import useRedirect from "../../hooks/useRedirect";
 import SubjectIcon from "./SubjectIcon";
 import Tags from "../../components/Tags";
 import subjects from "../../data/subject";
@@ -14,7 +13,6 @@ function PracticeHome() {
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
   const [matchedSubjects, setMatchedSubjects] = useState<Subject[]>(subjects);
   const [subjectKeyword, setSubjectKeyword] = useState("");
-  const redirect = useRedirect();
 
   useEffect(() => {
     document.title = "PTIT Quizz | Ôn thi trắc nghiệm";
