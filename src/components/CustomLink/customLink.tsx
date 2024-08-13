@@ -9,10 +9,8 @@ export interface CustomLinkProps
 
 function CustomLink(props: CustomLinkProps) {
   const handleChangeRoute = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (props.target === "_self") {
-      e.preventDefault();
-      window.location.href = props.to;
-    }
+    e.preventDefault();
+    window.location.href = props.to;
   };
   return <Link {...props} onClick={handleChangeRoute} />;
 }
