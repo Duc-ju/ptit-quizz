@@ -11,6 +11,7 @@ function PracticeControl() {
   useEffect(() => {
     document.title = "PTIT Quizz | Ôn thi trắc nghiệm";
   }, []);
+
   const shouldShowingSummary = usePracticeRoomShouldShowingSummarySelector();
   const practiceType = usePracticeRoomTypeConfigSelector();
 

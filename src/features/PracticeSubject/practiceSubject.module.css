@@ -43,6 +43,6 @@
 }
 
 .recommendPracticeList *[class *= 'practiceTitle'] {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400;
 }
