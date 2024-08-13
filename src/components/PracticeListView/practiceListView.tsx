@@ -4,7 +4,6 @@ import { MdHistory } from "@react-icons/all-files/md/MdHistory";
 import { GoListUnordered } from "@react-icons/all-files/go/GoListUnordered";
 import { GoTasklist } from "@react-icons/all-files/go/GoTasklist";
 import { Practice } from "../../models/multiple-question";
-import useRedirect from "../../hooks/useRedirect";
 import mergeClassNames from "merge-class-names";
 import CustomLink from "../CustomLink";
 
@@ -25,15 +24,13 @@ function PracticeListView({
   emptyMessage = "Danh sách bài ôn tập trống",
   errorMessage = "Không thể tải danh sách bài ôn tập",
 }: PracticeListViewProps) {
-  const redirect = useRedirect();
-
   return (
     <div className={mergeClassNames(classes.root, className)}>
       <h5 className={classes.heading}>{title}</h5>
       {practices.length === 0 || showError ? (
         <div className={classes.emptyWrapper}>
           <span className={classes.emptyMessage}>
-            {practices.length === 0 ? emptyMessage : errorMessage}
+            {showError ? errorMessage : emptyMessage}
           </span>
         </div>
       ) : (

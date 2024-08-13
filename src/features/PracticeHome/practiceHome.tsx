@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Practice, Subject } from "../../models/multiple-question";
+import { Subject } from "../../models/multiple-question";
 import classes from "./practiceHome.module.css";
 import mergeClassNames from "merge-class-names";
 import useRedirect from "../../hooks/useRedirect";
@@ -19,10 +19,6 @@ function PracticeHome() {
   useEffect(() => {
     document.title = "PTIT Quizz | Ôn thi trắc nghiệm";
   }, []);
-
-  const handleSelectPractice = (selectedItem: Practice) => {
-    redirect("/practice-review/" + selectedItem.code);
-  };
 
   useEffect(() => {
     if (!selectedSubject) {
@@ -89,21 +85,29 @@ function PracticeHome() {
             </div>
           </div>
           <div className={classes.subjectListContainer}>
-            {matchedSubjects.map((subject) => (
-              <div
-                key={subject.code}
-                className={mergeClassNames(
-                  classes.subject,
-                  selectedSubject?.code === subject.code
-                    ? classes.selectedSubject
-                    : ""
-                )}
-                onClick={() => setSelectedSubject(subject)}
-              >
-                <SubjectIcon icon={subject.icon} />
-                <span className={classes.subjectName}>{subject.name}</span>
+            {matchedSubjects.length === 0 ? (
+              <div className={classes.emptyWrapper}>
+                <span className={classes.emptyMessage}>
+                  Danh sách môn học trống
+                </span>
               </div>
-            ))}
+            ) : (
+              matchedSubjects.map((subject) => (
+                <div
+                  key={subject.code}
+                  className={mergeClassNames(
+                    classes.subject,
+                    selectedSubject?.code === subject.code
+                      ? classes.selectedSubject
+                      : ""
+                  )}
+                  onClick={() => setSelectedSubject(subject)}
+                >
+                  <SubjectIcon icon={subject.icon} />
+                  <span className={classes.subjectName}>{subject.name}</span>
+                </div>
+              ))
+            )}
           </div>
           <PracticeListView
             practices={matchedPractices}

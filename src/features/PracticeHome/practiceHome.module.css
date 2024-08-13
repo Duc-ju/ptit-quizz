@@ -102,54 +102,13 @@
 .subjectName {
 }
 
-.practiceList {
-    display: flex;
-    flex-direction: column;
-    row-gap: 8px;
-    margin: 8px 0;
-}
-
-.practice {
-    padding: 8px;
-    background-color: white;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.practiceTitle {
-    font-weight: 500;
-    font-size: 16px;
-}
-
-.practiceDescription {
-    color: var(--dark-grey-color);
-    margin: 4px 0;
-}
-
-.practiceInfoContainer {
-    display: flex;
-    flex-direction: row;
-    column-gap: 12px;
-}
-
-.numberContainer {
-    display: flex;
-    flex-direction: row;
-    column-gap: 6px;
-    text-align: center;
-}
-
-.number {
-}
-
 .emptyWrapper {
     display: flex;
     flex-direction: column;
     height: 76px;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .emptyMessage {
