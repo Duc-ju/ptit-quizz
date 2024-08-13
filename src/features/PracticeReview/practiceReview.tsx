@@ -41,6 +41,8 @@ import {
   saveQuestionsToStorage,
 } from "../../service/localStorageService";
 import practices from "../../data/practice";
+import PracticeListView from "../../components/PracticeListView";
+import subjects from "../../data/subject";
 
 function PracticeReview() {
   const [practice, setPractice] = useState<Practice | null>(null);
@@ -65,7 +67,7 @@ function PracticeReview() {
   const [practiceError, setPracticeError] = useState(false);
   const [practiceTimes, setPracticeTimes] = useState<PracticeTime[]>([]);
   const [practiceTimeFetching, setPracticeTimeFetching] = useState(false);
-  const [practiceTimeError, setPracticeTimeError] = useState(false);
+  const [practiceTimeError, setPracticeTimeError] = useState(true);
   const [previewFetching, setPreviewFetching] = useState(false);
   const [suffer, setSuffer] = useState(false);
   const [showNotification, setShowNotification] = useState(true);
@@ -82,7 +84,6 @@ function PracticeReview() {
     setSelectedQuestionRange(null);
     setSelectedChapter(null);
     handleRefreshPractice();
-    handleRefreshPracticeTime();
   }, [practiceCode]);
 
   const handleRefreshPractice = useCallback(() => {
@@ -99,6 +100,34 @@ function PracticeReview() {
       setPractice(filteredPractice);
     }
   }, [practiceCode]);
+
+  const subject = useMemo(() => {
+    if (!practice) return null;
+    return (
+      subjects.find((subject) => subject.code === practice.subjectCode) || null
+    );
+  }, [practice]);
+
+  const practicesWithSameSubject = useMemo(() => {
+    if (!practice) {
+      return [];
+    }
+    return practices.filter(
+      (masterPractice) =>
+        masterPractice.code !== practiceCode &&
+        masterPractice.subjectCode === practice.subjectCode
+    );
+  }, [practice]);
+
+  const recommendPractices = useMemo(() => {
+    if (!practice) {
+      return [];
+    }
+    return practices
+      .filter((masterPractice) => masterPractice.code !== practiceCode)
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 10);
+  }, [practice]);
 
   const handleRefreshPracticeTime = useCallback(() => {
     if (!practiceCode || !user) {
@@ -265,6 +294,10 @@ function PracticeReview() {
   }
 
   function handleQuestionsPreview() {
+    if (!user) {
+      redirect("/login");
+      return;
+    }
     if (initRoomFetching || !practice || !practiceCode) return;
     if (
       !selectedQuestionRange &&
@@ -681,6 +714,20 @@ function PracticeReview() {
                   handleRefresh={handleRefreshPracticeTime}
                 />
               </div>
+            ) : null}
+            {practicesWithSameSubject.length > 0 && subject ? (
+              <PracticeListView
+                className={classes.practiceList}
+                practices={practicesWithSameSubject}
+                title={`Bài luyện tập khác cho môn ${subject.name}`}
+              />
+            ) : null}
+            {recommendPractices.length > 0 ? (
+              <PracticeListView
+                className={classes.practiceList}
+                practices={recommendPractices}
+                title={"Gợi ý luyện tập thêm"}
+              />
             ) : null}
           </div>
           <div className={classes.actionContainer}>

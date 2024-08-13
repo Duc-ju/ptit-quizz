@@ -1,0 +1,67 @@
+.root {
+
+}
+
+.heading {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+}
+
+.practiceList {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    margin: 8px 0;
+}
+
+.practiceListItem {
+    padding: 8px;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.practiceListItem * {
+    color: var(--black);
+}
+
+.practiceTitle {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.practiceDescription {
+    color: var(--dark-grey-color);
+    margin: 4px 0;
+}
+
+.practiceInfoContainer {
+    display: flex;
+    flex-direction: row;
+    column-gap: 12px;
+}
+
+.numberContainer {
+    display: flex;
+    flex-direction: row;
+    column-gap: 6px;
+    text-align: center;
+}
+
+.number {
+}
+
+.emptyWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 76px;
+    justify-content: center;
+    align-items: center;
+}
+
+.emptyMessage {
+    text-align: center;
+}

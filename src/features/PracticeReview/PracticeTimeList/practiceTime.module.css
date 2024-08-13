@@ -10,3 +10,11 @@
     align-items: center;
     height: 120px;
 }
+
+.loadHistoryButton {
+    padding: 8px 16px;
+}
+
+.loadHistoryButton span {
+    font-size: 16px;
+}

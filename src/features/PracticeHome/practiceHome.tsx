@@ -4,13 +4,11 @@ import classes from "./practiceHome.module.css";
 import mergeClassNames from "merge-class-names";
 import useRedirect from "../../hooks/useRedirect";
 import SubjectIcon from "./SubjectIcon";
-import { GoTasklist } from "@react-icons/all-files/go/GoTasklist";
-import { GoListUnordered } from "@react-icons/all-files/go/GoListUnordered";
 import Tags from "../../components/Tags";
 import subjects from "../../data/subject";
 import practices from "../../data/practice";
-import { MdHistory } from "@react-icons/all-files/md/MdHistory";
 import { IoIosSearch } from "@react-icons/all-files/io/IoIosSearch";
+import PracticeListView from "../../components/PracticeListView";
 
 function PracticeHome() {
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
@@ -107,55 +105,11 @@ function PracticeHome() {
               </div>
             ))}
           </div>
-          <h5 className={classes.heading}>Danh sách bài luyện tập</h5>
-          {matchedPractices.length === 0 || !selectedSubject ? (
-            <div className={classes.emptyWrapper}>
-              <span className={classes.emptyMessage}>
-                {selectedSubject
-                  ? "Danh sách bài ôn tập trống"
-                  : "Chưa chọn môn học"}
-              </span>
-            </div>
-          ) : (
-            <div className={classes.practiceList}>
-              {matchedPractices.map((practice) => (
-                <div
-                  key={practice.code}
-                  className={classes.practice}
-                  onClick={() => handleSelectPractice(practice)}
-                >
-                  <span className={classes.practiceTitle}>
-                    {practice.title}
-                  </span>
-                  <span className={classes.practiceDescription}>
-                    {practice.description}
-                  </span>
-                  <div className={classes.practiceInfoContainer}>
-                    <div className={classes.numberContainer}>
-                      <MdHistory className={classes.historyIcon} />
-                      <span className={classes.number}>{`${
-                        practice.numberOfPracticed || 0
-                      } đã làm`}</span>
-                    </div>
-                    {practice.chapters ? (
-                      <div className={classes.numberContainer}>
-                        <GoListUnordered className={classes.chapterCountIcon} />
-                        <span className={classes.number}>{`${
-                          practice.chapters.length || 0
-                        } chương`}</span>
-                      </div>
-                    ) : null}
-                    <div className={classes.numberContainer}>
-                      <GoTasklist className={classes.questionCountIcon} />
-                      <span className={classes.number}>{`${
-                        practice.numberOfQuestion || 0
-                      } câu hỏi`}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          <PracticeListView
+            practices={matchedPractices}
+            showError={!selectedSubject}
+            errorMessage={"Chưa chọn môn học"}
+          />
         </div>
       </div>
       <Tags tags={tags} className={classes.tagContainer} />

@@ -32,8 +32,12 @@ function PracticeTimeList({
   if (error) {
     return (
       <div className={classes.emptyWrapper}>
-        <LoadingButton onClick={handleRefresh} fetching={fetching}>
-          Tải lại
+        <LoadingButton
+          onClick={handleRefresh}
+          fetching={fetching}
+          className={classes.loadHistoryButton}
+        >
+          Tải lịch sử
         </LoadingButton>
       </div>
     );
