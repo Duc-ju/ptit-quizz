@@ -5,10 +5,6 @@
         <lastmod>2024-08-12</lastmod>
     </url>
     <url>
-        <loc>https://ptitquizz.web.app/login/</loc>
-        <lastmod>2024-18-12</lastmod>
-    </url>
-    <url>
         <loc>https://ptitquizz.web.app/practice-review/an-toan-va-bao-mat-he-thong-thong-tin-01/</loc>
         <lastmod>2024-18-12</lastmod>
     </url>
@@ -91,6 +87,10 @@
     <url>
         <loc>https://ptitquizz.web.app/practice-subject/phap-luat-dai-cuong/</loc>
         <lastmod>2024-18-13</lastmod>
+    </url>
+    <url>
+        <loc>https://ptitquizz.web.app/login/</loc>
+        <lastmod>2024-18-12</lastmod>
     </url>
     <url>
         <loc>https://ptitquizz.web.app/register/</loc>

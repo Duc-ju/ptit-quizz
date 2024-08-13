@@ -719,7 +719,7 @@ function PracticeReview() {
               <PracticeListView
                 className={classes.practiceList}
                 practices={practicesWithSameSubject}
-                title={`Bài luyện tập khác cho môn ${subject.name}`}
+                title={`Đề luyện tập khác cho môn ${subject.name}`}
               />
             ) : null}
             {recommendPractices.length > 0 ? (

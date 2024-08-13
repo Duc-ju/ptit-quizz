@@ -21,8 +21,8 @@ function PracticeListView({
   title = "Danh sách đề luyện tập",
   practices,
   showError,
-  emptyMessage = "Danh sách bài ôn tập trống",
-  errorMessage = "Không thể tải danh sách bài ôn tập",
+  emptyMessage = "Danh sách đề ôn tập trống",
+  errorMessage = "Không thể tải danh sách đề ôn tập",
 }: PracticeListViewProps) {
   return (
     <div className={mergeClassNames(classes.root, className)}>
