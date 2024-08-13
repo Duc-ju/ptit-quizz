@@ -91,7 +91,7 @@ export const THEME_COLORS: Record<typeof THEME_KEYS[number], ThemeColors> = {
     black: "#000000",
   },
   "custom-3": {
-    primary: "#000000",
+    primary: "#009688",
     primary10: "rgba(0, 150, 136, 0.1)",
     primary15: "rgba(0, 150, 136, 0.15)",
     secondary: "#b2d0c7",

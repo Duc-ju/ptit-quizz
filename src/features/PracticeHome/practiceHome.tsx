@@ -10,9 +10,12 @@ import Tags from "../../components/Tags";
 import subjects from "../../data/subject";
 import practices from "../../data/practice";
 import { MdHistory } from "@react-icons/all-files/md/MdHistory";
+import { IoIosSearch } from "@react-icons/all-files/io/IoIosSearch";
 
 function PracticeHome() {
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
+  const [matchedSubjects, setMatchedSubjects] = useState<Subject[]>(subjects);
+  const [subjectKeyword, setSubjectKeyword] = useState("");
   const redirect = useRedirect();
 
   useEffect(() => {
@@ -22,6 +25,31 @@ function PracticeHome() {
   const handleSelectPractice = (selectedItem: Practice) => {
     redirect("/practice-review/" + selectedItem.code);
   };
+
+  useEffect(() => {
+    if (!selectedSubject) {
+      return;
+    }
+    if (
+      !matchedSubjects
+        .map((subject) => subject.code)
+        .includes(selectedSubject.code)
+    ) {
+      setSelectedSubject(null);
+    }
+  }, [matchedSubjects]);
+
+  function handleSearchSubject() {
+    if (!subjectKeyword) {
+      setMatchedSubjects(subjects);
+      return;
+    }
+    setMatchedSubjects(
+      subjects.filter((subject) =>
+        subject.name.toLowerCase().includes(subjectKeyword.toLowerCase())
+      )
+    );
+  }
 
   const matchedPractices = useMemo(() => {
     if (!selectedSubject) return [];
@@ -45,9 +73,25 @@ function PracticeHome() {
     <div className={classes.root}>
       <div className={classes.parent}>
         <div className={classes.container}>
-          <h5 className={classes.heading}>Danh sách môn học</h5>
+          <div className={classes.headingContainer}>
+            <h5 className={classes.heading}>Danh sách môn học</h5>
+            <div className={classes.subjectSearchContainer}>
+              <input
+                className={classes.subjectSearchInput}
+                placeholder={"Nhập từ khóa"}
+                value={subjectKeyword}
+                onChange={(e) => setSubjectKeyword(e.target.value)}
+              />
+              <span
+                className={classes.searchButton}
+                onClick={handleSearchSubject}
+              >
+                <IoIosSearch className={classes.searchIcon} />
+              </span>
+            </div>
+          </div>
           <div className={classes.subjectListContainer}>
-            {subjects.map((subject) => (
+            {matchedSubjects.map((subject) => (
               <div
                 key={subject.code}
                 className={mergeClassNames(
