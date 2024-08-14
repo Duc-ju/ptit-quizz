@@ -12,6 +12,12 @@ function PracticeSubject() {
   const { subjectCode } = useParams();
 
   useEffect(() => {
+    document.title = subject
+      ? `PTIT Quizz | Môn ${subject.name}`
+      : "PTIT Quizz | Ôn thi trắc nghiệm";
+  }, [subject]);
+
+  useEffect(() => {
     if (subjectCode) {
       setSubject(
         subjects.find((subject) => subject.code === subjectCode) || null

@@ -64,7 +64,7 @@ function PracticeReview() {
     useState<QuestionRange | null>(null);
   const [initRoomFetching, setInitRoomFetching] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const {practiceCode} = useParams();
+  const { practiceCode } = useParams();
   const [practiceError, setPracticeError] = useState(false);
   const [practiceTimes, setPracticeTimes] = useState<PracticeTime[]>([]);
   const [practiceTimeFetching, setPracticeTimeFetching] = useState(false);
@@ -76,11 +76,13 @@ function PracticeReview() {
   const redirect = useRedirect();
   const navigate = useNavigate();
   useHideFooter();
-  useHideSnowFlakeButton()
+  useHideSnowFlakeButton();
 
   useEffect(() => {
-    document.title = "PTIT Quizz | Ôn thi trắc nghiệm";
-  }, []);
+    document.title = practice
+      ? `PTIT Quizz | ${practice.title}`
+      : "PTIT Quizz | Ôn thi trắc nghiệm";
+  }, [practice]);
 
   useEffect(() => {
     setSelectedQuestionRange(null);
@@ -215,8 +217,8 @@ function PracticeReview() {
           practiceDescription: selectedQuestionRange
             ? `Câu hỏi số ${selectedQuestionRange.startAt}-${selectedQuestionRange.endAt}`
             : selectedChapter
-              ? selectedChapter.title
-              : `Tất cả ${practice.numberOfQuestion} câu hỏi`,
+            ? selectedChapter.title
+            : `Tất cả ${practice.numberOfQuestion} câu hỏi`,
           questions: questions as Question[],
           config: {
             maxResultTime,
@@ -340,7 +342,7 @@ function PracticeReview() {
       .finally(() => setPreviewFetching(false));
   }
 
-  if (!practiceCode) return <PracticeHome/>;
+  if (!practiceCode) return <PracticeHome />;
 
   return (
     <div className={classes.root}>
@@ -348,7 +350,7 @@ function PracticeReview() {
         <div className={classes.container}>
           <div className={classes.innerContainer}>
             {practiceError ? (
-              <div className={classes.emptyWrapper} style={{height: 100}}>
+              <div className={classes.emptyWrapper} style={{ height: 100 }}>
                 <LoadingButton onClick={handleRefreshPractice}>
                   Tải lại
                 </LoadingButton>
@@ -366,21 +368,21 @@ function PracticeReview() {
                 ) : null}
                 <div className={classes.practiceInfoContainer}>
                   <div className={classes.numberContainer}>
-                    <MdHistory className={classes.historyIcon}/>
+                    <MdHistory className={classes.historyIcon} />
                     <span className={classes.number}>{`${
                       practice?.numberOfPracticed || 0
                     } đã làm`}</span>
                   </div>
                   {practice?.chapters ? (
                     <div className={classes.numberContainer}>
-                      <GoListUnordered className={classes.chapterCountIcon}/>
+                      <GoListUnordered className={classes.chapterCountIcon} />
                       <span className={classes.number}>{`${
                         practice.chapters.length || 0
                       } chương`}</span>
                     </div>
                   ) : null}
                   <div className={classes.numberContainer}>
-                    <GoTasklist className={classes.questionCountIcon}/>
+                    <GoTasklist className={classes.questionCountIcon} />
                     <span className={classes.number}>{`${
                       practice?.numberOfQuestion || 0
                     } câu hỏi`}</span>
@@ -394,7 +396,7 @@ function PracticeReview() {
               </h5>
               <div className={classes.configContainer}>
                 {practiceError ? (
-                  <div className={classes.emptyWrapper} style={{height: 120}}>
+                  <div className={classes.emptyWrapper} style={{ height: 120 }}>
                     <LoadingButton onClick={handleRefreshPractice}>
                       Tải lại
                     </LoadingButton>
@@ -539,7 +541,7 @@ function PracticeReview() {
                                   className={mergeClassNames(
                                     classes.questionRange,
                                     item.startAt ===
-                                    selectedQuestionRange?.startAt
+                                      selectedQuestionRange?.startAt
                                       ? classes.borderPrimary
                                       : ""
                                   )}
@@ -550,7 +552,7 @@ function PracticeReview() {
                                     className={mergeClassNames(
                                       classes.questionRangeLabel,
                                       item.startAt ===
-                                      selectedQuestionRange?.startAt
+                                        selectedQuestionRange?.startAt
                                         ? classes.colorPrimary
                                         : ""
                                     )}
@@ -760,7 +762,7 @@ function PracticeReview() {
           />
         </div>
       </div>
-      <QuestionPreviewModal/>
+      <QuestionPreviewModal />
     </div>
   );
 }
