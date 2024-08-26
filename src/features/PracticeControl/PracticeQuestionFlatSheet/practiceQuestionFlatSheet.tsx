@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import mergeClassNames from "merge-class-names";
 import {
+  usePracticeRoomPractice,
   usePracticeRoomQuestionsSelector,
   usePracticeRoomResultsSelector,
   usePracticeRoomSavingResultSelector,
@@ -25,6 +26,8 @@ import {
 } from "../../../redux/slices/practiceRoomSlice";
 import getMinutesAndSeconds from "../../../utils/getMinutesAndSeconds";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { increasePracticeTimeCount } from "../../../redux/slices/masterSlice";
+import { toast } from "react-toastify";
 
 function PracticeQuestionFlatSheet() {
   const [playing, setPlaying] = useState(true);
@@ -33,6 +36,7 @@ function PracticeQuestionFlatSheet() {
   const sufferIndexes = usePracticeSufferIndexesSelector();
   const totalTime = usePracticeRoomTotalTimeSelector();
   const savingResult = usePracticeRoomSavingResultSelector();
+  const practice = usePracticeRoomPractice();
 
   useHideFooter();
   useHideSnowFlakeButton();
@@ -51,11 +55,19 @@ function PracticeQuestionFlatSheet() {
   }, [dispatch, playing]);
 
   function handleSubmit() {
+    if (!practice || !practice.code) return;
     dispatch(completeFlatPractice());
     dispatch(saveResult())
       .then(unwrapResult)
-      .then()
-      .catch((err) => console.log(err));
+      .then(() => dispatch(increasePracticeTimeCount(practice.code)))
+      .then(unwrapResult)
+      .then(() => {
+        toast.info("Đã lưu kết quả luyện tập");
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("Không thể lưu kết quả luyện tập");
+      });
   }
 
   return (

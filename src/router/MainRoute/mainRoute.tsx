@@ -7,9 +7,13 @@ import { toast } from "react-toastify";
 import LoadingFallBack from "../../components/LoadingFallback";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { loadMasterFromStorage } from "../../redux/slices/masterSlice";
+import {
+  loadMasterFromStorage,
+  loadPracticeTimeCountList,
+} from "../../redux/slices/masterSlice";
 import { useColorsMasterSelector } from "../../redux/selector";
 import Footer from "../../components/Footer";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const NotFound = lazy(() => import("../../features/NotFound"));
 const PracticeHome = lazy(() => import("../../features/PracticeHome"));
@@ -36,6 +40,7 @@ function MainRoute() {
 
   useEffect(() => {
     dispatch(loadMasterFromStorage());
+    dispatch(loadPracticeTimeCountList()).then(unwrapResult);
   }, [dispatch]);
 
   useEffect(() => {

@@ -16,6 +16,9 @@ export const useThemeKeyMasterSelector = () =>
 export const useColorsMasterSelector = () =>
   useSelector((state: RootState) => state.master.colors);
 
+export const useMasterPracticeTimeCountMap = () =>
+  useSelector((state: RootState) => state.master.practiceTimeCountMap);
+
 export const useFooterVisibleSelector = () =>
   useSelector((state: RootState) => state.master.footerVisible);
 

@@ -6,6 +6,7 @@ import { GoTasklist } from "@react-icons/all-files/go/GoTasklist";
 import { Practice } from "../../models/multiple-question";
 import mergeClassNames from "merge-class-names";
 import CustomLink from "../CustomLink";
+import { useMasterPracticeTimeCountMap } from "../../redux/selector";
 
 interface PracticeListViewProps {
   className?: string;
@@ -24,6 +25,8 @@ function PracticeListView({
   emptyMessage = "Danh sách đề ôn tập trống",
   errorMessage = "Không thể tải danh sách đề ôn tập",
 }: PracticeListViewProps) {
+  const practiceTimeCountMap = useMasterPracticeTimeCountMap();
+
   return (
     <div className={mergeClassNames(classes.root, className)}>
       <h5 className={classes.heading}>{title}</h5>
@@ -49,7 +52,9 @@ function PracticeListView({
                 <div className={classes.numberContainer}>
                   <MdHistory className={classes.historyIcon} />
                   <span className={classes.number}>{`${
-                    practice.numberOfPracticed || 0
+                    practiceTimeCountMap
+                      ? practiceTimeCountMap[practice.code] || 0
+                      : 0
                   } đã làm`}</span>
                 </div>
                 {practice.chapters ? (

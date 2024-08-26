@@ -19,7 +19,10 @@ import {
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { useNavigate, useParams } from "react-router-dom";
-import { useUserSelector } from "../../redux/selector";
+import {
+  useMasterPracticeTimeCountMap,
+  useUserSelector,
+} from "../../redux/selector";
 import { db } from "../../firebase/config";
 import { toast } from "react-toastify";
 import useRedirect from "../../hooks/useRedirect";
@@ -75,6 +78,7 @@ function PracticeReview() {
   const user = useUserSelector();
   const redirect = useRedirect();
   const navigate = useNavigate();
+  const practiceTimeCountMap = useMasterPracticeTimeCountMap();
   useHideFooter();
   useHideSnowFlakeButton();
 
@@ -370,7 +374,9 @@ function PracticeReview() {
                   <div className={classes.numberContainer}>
                     <MdHistory className={classes.historyIcon} />
                     <span className={classes.number}>{`${
-                      practice?.numberOfPracticed || 0
+                      practice && practiceTimeCountMap
+                        ? practiceTimeCountMap[practice.code] || 0
+                        : 0
                     } đã làm`}</span>
                   </div>
                   {practice?.chapters ? (

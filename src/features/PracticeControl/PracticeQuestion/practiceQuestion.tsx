@@ -24,6 +24,7 @@ import useHideFooter from "../../../hooks/useHideFooter";
 import useHideSnowFlakeButton from "../../../hooks/useHideSnowFlakeButton";
 import AnswerIcon from "../../../components/AnswerIcon";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { increasePracticeTimeCount } from "../../../redux/slices/masterSlice";
 
 const answerIndexNameMapping = ["A", "B", "C", "D"];
 
@@ -39,6 +40,7 @@ function PracticeQuestion() {
     shouldNextQuestion,
     sufferIndexes,
     savingResult,
+    practice,
   } = usePracticeRoomSelector();
   const dispatch = useDispatch<AppDispatch>();
   const [playing, setPlaying] = useState(true);
@@ -163,8 +165,11 @@ function PracticeQuestion() {
     }
     dispatch(nextQuestion());
     if (currentQuestionIndex >= questions.length - 1) {
+      if (!practice || !practice.code) return;
       dispatch(setSavingResult(true));
       dispatch(saveResult())
+        .then(unwrapResult)
+        .then(() => dispatch(increasePracticeTimeCount(practice.code)))
         .then(unwrapResult)
         .then(() => {
           toast.info("Đã lưu kết quả luyện tập");

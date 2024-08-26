@@ -55,7 +55,6 @@ export interface Practice {
   title: string;
   description: string;
   numberOfQuestion: number;
-  numberOfPracticed?: number;
   chapters?: Chapter[];
   author?: string;
   isHided?: boolean;
@@ -83,4 +82,8 @@ export interface Answer {
   title: string;
   isKey: boolean;
   idx: number;
+}
+
+export interface PracticeTimeCountMap {
+  [key: string]: number;
 }

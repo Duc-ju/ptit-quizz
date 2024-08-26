@@ -1,5 +1,16 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { THEME_KEY } from "../../constant/constant";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  PRACTICE_TIME_COUNT_MAP_KEY,
+  THEME_KEY,
+} from "../../constant/constant";
+import { PracticeTimeCountMap } from "../../models/multiple-question";
+import {
+  getPracticeTimeCountMapFromStorage,
+  savePracticeTimeCountMapToStorage,
+} from "../../service/localStorageService";
+import { db } from "../../firebase/config";
+import { cloneDeep } from "lodash";
+import { RootState } from "../store";
 
 export const THEME_KEYS = [
   "default",
@@ -14,6 +25,7 @@ export interface MasterState {
   colors: ThemeColors;
   footerVisible: boolean;
   snowFlakeButtonVisible: boolean;
+  practiceTimeCountMap: PracticeTimeCountMap | null;
 }
 
 export interface ThemeColors {
@@ -133,7 +145,49 @@ const initialState: MasterState = {
   colors: THEME_COLORS["custom-2"],
   footerVisible: true,
   snowFlakeButtonVisible: true,
+  practiceTimeCountMap: null,
 };
+
+export const loadPracticeTimeCountList = createAsyncThunk(
+  "master/loadPracticeTimeCountList",
+  async () => {
+    const cachedPracticeTimeCountList = getPracticeTimeCountMapFromStorage();
+    if (cachedPracticeTimeCountList) {
+      return cachedPracticeTimeCountList;
+    }
+    const doc = await db
+      .collection("configs")
+      .doc(PRACTICE_TIME_COUNT_MAP_KEY)
+      .get();
+    if (doc.exists) {
+      const practiceTimeCountMap: PracticeTimeCountMap = doc.data() as any;
+      savePracticeTimeCountMapToStorage(practiceTimeCountMap);
+      return practiceTimeCountMap;
+    }
+    return null;
+  }
+);
+
+export const increasePracticeTimeCount = createAsyncThunk(
+  "master/increasePracticeTimeCount",
+  async (practiceCode: string, { getState }) => {
+    const state = getState() as RootState;
+    if (!state.master.practiceTimeCountMap) return null;
+    const newPracticeCountMap = cloneDeep(state.master.practiceTimeCountMap);
+    const count = newPracticeCountMap[practiceCode]
+      ? newPracticeCountMap[practiceCode] + 1
+      : 1;
+    await db
+      .collection("configs")
+      .doc(PRACTICE_TIME_COUNT_MAP_KEY)
+      .update({
+        [practiceCode]: count,
+      });
+    newPracticeCountMap[practiceCode] = count;
+    savePracticeTimeCountMapToStorage(newPracticeCountMap);
+    return newPracticeCountMap;
+  }
+);
 
 export const masterSlice = createSlice({
   name: "theme",
@@ -163,6 +217,18 @@ export const masterSlice = createSlice({
     hideSnowFlakeButton: (state) => {
       state.snowFlakeButtonVisible = false;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loadPracticeTimeCountList.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.practiceTimeCountMap = action.payload;
+      }
+    });
+    builder.addCase(increasePracticeTimeCount.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.practiceTimeCountMap = action.payload;
+      }
+    });
   },
 });
 

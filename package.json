@@ -15,6 +15,7 @@
     "@types/react-modal": "^3.16.3",
     "firebase": "^9.14.0",
     "formik": "^2.4.6",
+    "lodash": "^4.17.21",
     "merge-class-names": "^1.4.2",
     "normalize.css": "^8.0.1",
     "prettier": "^2.6.2",
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/lodash": "^4.17.7",
     "sass": "^1.77.0"
   }
 }
