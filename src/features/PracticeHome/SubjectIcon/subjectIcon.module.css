@@ -1,12 +1,17 @@
 .root {
-    width: 32px;
-    height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
     background-color: var(--white);
     box-shadow: var(--shadow-light);
+    overflow: hidden;
+    width: fit-content;
+}
+
+.subjectImage {
+    width: 64px;
+    height: 64px;
 }
 
 .icon {

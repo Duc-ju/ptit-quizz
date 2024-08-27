@@ -58,7 +58,35 @@
 
 .practice {
     display: flex;
+    column-gap: 16px;
+    padding: 8px;
+    background-color: var(--white);
+    border-radius: 8px;
+}
+
+.iconImage {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+}
+
+.practiceImage {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+}
+
+.practiceInfo {
+    flex: 1;
+    display: flex;
     flex-direction: column;
+    row-gap: 6px;
+}
+
+.practiceConfig {
+    display: flex;
+    flex-direction: column;
+    column-gap: 16px;
     padding: 8px;
     background-color: var(--white);
     border-radius: 8px;
@@ -83,14 +111,15 @@
 .practiceInfoContainer {
     display: flex;
     flex-direction: row;
-    column-gap: 12px;
+    column-gap: 8px;
 }
 
 .numberContainer {
     display: flex;
     flex-direction: row;
-    column-gap: 6px;
+    column-gap: 4px;
     text-align: center;
+    align-items: center;
 }
 
 .number {

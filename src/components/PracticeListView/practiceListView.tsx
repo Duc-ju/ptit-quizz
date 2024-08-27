@@ -44,32 +44,50 @@ function PracticeListView({
               key={practice.code}
               className={classes.practiceListItem}
             >
-              <span className={classes.practiceTitle}>{practice.title}</span>
-              <span className={classes.practiceDescription}>
-                {practice.description}
-              </span>
-              <div className={classes.practiceInfoContainer}>
-                <div className={classes.numberContainer}>
-                  <MdHistory className={classes.historyIcon} />
-                  <span className={classes.number}>{`${
-                    practiceTimeCountMap
-                      ? practiceTimeCountMap[practice.code] || 0
-                      : 0
-                  } đã làm`}</span>
-                </div>
-                {practice.chapters ? (
+              <div className={classes.iconImage}>
+                <img
+                  className={classes.practiceImage}
+                  src={`/image/practice/${practice.code}.webp`}
+                  alt={practice.title}
+                />
+              </div>
+              <div className={classes.practiceInfo}>
+                <span className={classes.practiceTitle}>{practice.title}</span>
+                <span className={classes.practiceDescription}>
+                  {practice.description}
+                </span>
+                <div className={classes.practiceInfoContainer}>
                   <div className={classes.numberContainer}>
-                    <GoListUnordered className={classes.chapterCountIcon} />
+                    <MdHistory
+                      fill={"var(--success-color)"}
+                      stroke={"var(--success-color)"}
+                    />
                     <span className={classes.number}>{`${
-                      practice.chapters.length || 0
-                    } chương`}</span>
+                      practiceTimeCountMap
+                        ? practiceTimeCountMap[practice.code] || 0
+                        : 0
+                    } đã làm`}</span>
                   </div>
-                ) : null}
-                <div className={classes.numberContainer}>
-                  <GoTasklist className={classes.questionCountIcon} />
-                  <span className={classes.number}>{`${
-                    practice.numberOfQuestion || 0
-                  } câu hỏi`}</span>
+                  {practice.chapters ? (
+                    <div className={classes.numberContainer}>
+                      <GoListUnordered
+                        fill={"var(--secondary-color)"}
+                        stroke={"var(--secondary-color)"}
+                      />
+                      <span className={classes.number}>{`${
+                        practice.chapters.length || 0
+                      } chương`}</span>
+                    </div>
+                  ) : null}
+                  <div className={classes.numberContainer}>
+                    <GoTasklist
+                      fill={"var(--info-color)"}
+                      stroke={"var(--info-color)"}
+                    />
+                    <span className={classes.number}>{`${
+                      practice.numberOfQuestion || 0
+                    } câu hỏi`}</span>
+                  </div>
                 </div>
               </div>
             </CustomLink>

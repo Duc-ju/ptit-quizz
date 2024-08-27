@@ -20,9 +20,28 @@
     width: 100%;
 }
 
-.practiceList *[class *= 'heading'] {
-    font-size: 24px;
+.heading {
+    margin-bottom: 32px;
+}
+
+.title {
     text-align: center;
+}
+
+.iconImage {
+    display: flex;
+    width: fit-content;
+    background-color: var(--white);
+    box-shadow: var(--shadow-primary);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.subjectImage {
+    width: 180px;
+    height: 180px;
 }
 
 .recommendPracticeList {

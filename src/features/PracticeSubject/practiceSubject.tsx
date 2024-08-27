@@ -58,13 +58,18 @@ function PracticeSubject() {
     <div className={classes.root}>
       <div className={classes.parent}>
         <div className={classes.container}>
+          <div className={classes.heading}>
+            <h2 className={classes.title}>Môn {subject?.name}</h2>
+            <div className={classes.iconImage}>
+              <img
+                className={classes.subjectImage}
+                src={`/image/subject/${subject?.code}.webp`}
+                alt={subject?.name}
+              />
+            </div>
+          </div>
           <PracticeListView
             className={classes.practiceList}
-            title={
-              subject
-                ? `Danh sách đề luyện tập môn ${subject.name}`
-                : "Danh sách đề luyện tập"
-            }
             practices={matchedPractices}
           />
           {recommendPractices.length > 0 ? (

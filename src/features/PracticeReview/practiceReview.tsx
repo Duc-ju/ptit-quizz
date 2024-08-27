@@ -361,42 +361,51 @@ function PracticeReview() {
               </div>
             ) : (
               <div className={classes.practice}>
-                <h2 className={classes.practiceTitle}>{practice?.title}</h2>
-                <span className={classes.practiceDescription}>
-                  {practice?.description}
-                </span>
-                {practice?.author ? (
-                  <span
-                    className={classes.practiceAuthor}
-                  >{`Nguồn: ${practice.author}`}</span>
-                ) : null}
-                <div className={classes.practiceInfoContainer}>
-                  <div className={classes.numberContainer}>
-                    <MdHistory className={classes.historyIcon} />
-                    <span className={classes.number}>{`${
-                      practice && practiceTimeCountMap
-                        ? practiceTimeCountMap[practice.code] || 0
-                        : 0
-                    } đã làm`}</span>
-                  </div>
-                  {practice?.chapters ? (
-                    <div className={classes.numberContainer}>
-                      <GoListUnordered className={classes.chapterCountIcon} />
-                      <span className={classes.number}>{`${
-                        practice.chapters.length || 0
-                      } chương`}</span>
-                    </div>
+                <div className={classes.iconImage}>
+                  <img
+                    className={classes.practiceImage}
+                    src={`/image/practice/${practice?.code}.webp`}
+                    alt={practice?.title}
+                  />
+                </div>
+                <div className={classes.practiceInfo}>
+                  <h2 className={classes.practiceTitle}>{practice?.title}</h2>
+                  <span className={classes.practiceDescription}>
+                    {practice?.description}
+                  </span>
+                  {practice?.author ? (
+                    <span
+                      className={classes.practiceAuthor}
+                    >{`Nguồn: ${practice.author}`}</span>
                   ) : null}
-                  <div className={classes.numberContainer}>
-                    <GoTasklist className={classes.questionCountIcon} />
-                    <span className={classes.number}>{`${
-                      practice?.numberOfQuestion || 0
-                    } câu hỏi`}</span>
+                  <div className={classes.practiceInfoContainer}>
+                    <div className={classes.numberContainer}>
+                      <MdHistory className={classes.historyIcon} />
+                      <span className={classes.number}>{`${
+                        practice && practiceTimeCountMap
+                          ? practiceTimeCountMap[practice.code] || 0
+                          : 0
+                      } đã làm`}</span>
+                    </div>
+                    {practice?.chapters ? (
+                      <div className={classes.numberContainer}>
+                        <GoListUnordered className={classes.chapterCountIcon} />
+                        <span className={classes.number}>{`${
+                          practice.chapters.length || 0
+                        } chương`}</span>
+                      </div>
+                    ) : null}
+                    <div className={classes.numberContainer}>
+                      <GoTasklist className={classes.questionCountIcon} />
+                      <span className={classes.number}>{`${
+                        practice?.numberOfQuestion || 0
+                      } câu hỏi`}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             )}
-            <div className={classes.practice}>
+            <div className={classes.practiceConfig}>
               <h5 className={classes.practiceTitle}>
                 Thiết lập phòng luyện tập
               </h5>
@@ -714,7 +723,7 @@ function PracticeReview() {
               </div>
             </div>
             {user ? (
-              <div className={classes.practice}>
+              <div className={classes.practiceConfig}>
                 <h5 className={classes.practiceTitle}>Lịch sử luyện tập</h5>
                 <PracticeTimeList
                   practiceTimes={practiceTimes}

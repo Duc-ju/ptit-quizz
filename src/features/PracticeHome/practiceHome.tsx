@@ -101,7 +101,7 @@ function PracticeHome() {
                   )}
                   onClick={() => setSelectedSubject(subject)}
                 >
-                  <SubjectIcon icon={subject.icon} />
+                  <SubjectIcon subject={subject} />
                   <span className={classes.subjectName}>{subject.name}</span>
                 </div>
               ))

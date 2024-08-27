@@ -1,15 +1,19 @@
 import React from "react";
-import { FaGraduationCap } from "@react-icons/all-files/fa/FaGraduationCap";
 import classes from "./subjectIcon.module.css";
+import { Subject } from "../../../models/multiple-question";
 
 interface SubjectIconProps {
-  icon: string;
+  subject: Subject;
 }
 
-function SubjectIcon({ icon }: SubjectIconProps) {
+function SubjectIcon({ subject }: SubjectIconProps) {
   return (
     <div className={classes.root}>
-      <FaGraduationCap className={classes.icon} />
+      <img
+        className={classes.subjectImage}
+        src={`/image/subject/${subject.code}.webp`}
+        alt={subject.name}
+      />
     </div>
   );
 }
