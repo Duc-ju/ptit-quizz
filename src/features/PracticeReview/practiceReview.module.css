@@ -304,14 +304,18 @@ select {
 
 @media only screen and (max-width: 1024px) {
     .practiceInfo {
-        column-gap: 6px;
+        column-gap: 4px;
     }
 
     .numberContainer {
-        column-gap: 4px;
+        column-gap: 3px;
     }
 
     .number {
         font-size: 13px;
+    }
+
+    .practice {
+        column-gap: 8px;
     }
 }

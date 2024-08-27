@@ -159,7 +159,7 @@ function Header() {
                       <span className={classes.icon}>
                         <MdAccountCircle />
                       </span>
-                      <span className={classes.title}>SV PTIT | Đăng nhập</span>
+                      <span className={classes.title}>Đăng nhập</span>
                     </CustomNavLink>
                   </li>
                   <li className={classes.menuItem}>
@@ -177,7 +177,7 @@ function Header() {
                       <span className={classes.icon}>
                         <FiUserPlus />
                       </span>
-                      <span className={classes.title}>SV PTIT | Đăng ký</span>
+                      <span className={classes.title}>Đăng ký</span>
                     </CustomNavLink>
                   </li>
                 </>
