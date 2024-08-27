@@ -65,3 +65,10 @@
     font-size: 15px;
     font-weight: 400;
 }
+
+@media only screen and (max-width: 638px) {
+    .subjectImage {
+        width: 140px;
+        height: 140px;
+    }
+}
