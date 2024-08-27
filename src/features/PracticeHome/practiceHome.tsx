@@ -8,6 +8,7 @@ import subjects from "../../data/subject";
 import practices from "../../data/practice";
 import { IoIosSearch } from "@react-icons/all-files/io/IoIosSearch";
 import PracticeListView from "../../components/PracticeListView";
+import useRedirect from "../../hooks/useRedirect";
 
 function PracticeHome() {
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(
@@ -15,6 +16,7 @@ function PracticeHome() {
   );
   const [matchedSubjects, setMatchedSubjects] = useState<Subject[]>(subjects);
   const [subjectKeyword, setSubjectKeyword] = useState("");
+  const redirect = useRedirect();
 
   useEffect(() => {
     document.title = "PTIT Quizz | Ôn thi trắc nghiệm";
@@ -63,6 +65,14 @@ function PracticeHome() {
     ];
   }, []);
 
+  function handleSelectSubject(subject: Subject) {
+    if (selectedSubject && selectedSubject.code === subject.code) {
+      redirect(`/practice-subject/${subject.code}`);
+      return;
+    }
+    setSelectedSubject(subject);
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.parent}>
@@ -101,7 +111,7 @@ function PracticeHome() {
                       ? classes.selectedSubject
                       : ""
                   )}
-                  onClick={() => setSelectedSubject(subject)}
+                  onClick={() => handleSelectSubject(subject)}
                 >
                   <SubjectIcon subject={subject} />
                   <span className={classes.subjectName}>{subject.name}</span>
