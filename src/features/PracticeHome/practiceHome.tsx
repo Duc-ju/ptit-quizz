@@ -10,7 +10,9 @@ import { IoIosSearch } from "@react-icons/all-files/io/IoIosSearch";
 import PracticeListView from "../../components/PracticeListView";
 
 function PracticeHome() {
-  const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
+  const [selectedSubject, setSelectedSubject] = useState<Subject | null>(
+    subjects[0]
+  );
   const [matchedSubjects, setMatchedSubjects] = useState<Subject[]>(subjects);
   const [subjectKeyword, setSubjectKeyword] = useState("");
 
