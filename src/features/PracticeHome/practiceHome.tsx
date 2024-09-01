@@ -61,7 +61,7 @@ function PracticeHome() {
       "PTIT Quizz",
       "Hệ thống ôn thi trắc nghiệm",
       "Ngân hàng câu hỏi",
-      ...subjects.map((subject) => subject.name),
+      ...subjects.map((subject) => `Trắc nghiệm ${subject.name}`),
     ];
   }, []);
 
