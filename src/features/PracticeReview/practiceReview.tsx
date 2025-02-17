@@ -346,10 +346,6 @@ function PracticeReview() {
       .finally(() => setPreviewFetching(false));
   }
 
-  const handleRedirectToGradePTIT = () => {
-    redirect("https://gradeptit.web.app/practice-home");
-  };
-
   if (!practiceCode) return <PracticeHome />;
 
   return (
@@ -762,19 +758,12 @@ function PracticeReview() {
               Xem trước câu hỏi
             </LoadingButton>
             <LoadingButton
-              fetching={previewFetching}
-              onClick={handleRedirectToGradePTIT}
+              fetching={initRoomFetching}
+              onClick={handleStartControl}
               className={classes.startButton}
             >
-              Ôn tập tại Grade PTIT
+              {user ? "Bắt đầu" : "Đăng nhập để bắt đầu"}
             </LoadingButton>
-            {/*<LoadingButton*/}
-            {/*  fetching={initRoomFetching}*/}
-            {/*  onClick={handleStartControl}*/}
-            {/*  className={classes.startButton}*/}
-            {/*>*/}
-            {/*  {user ? "Bắt đầu" : "Đăng nhập để bắt đầu"}*/}
-            {/*</LoadingButton>*/}
           </div>
           <Tags
             tags={[
